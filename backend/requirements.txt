@@ -1,0 +1,6 @@
+# Flask
+Flask
+flask-cors
+pandas
+fuzzywuzzy
+python-Levenshtein
