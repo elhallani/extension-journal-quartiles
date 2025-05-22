@@ -16,43 +16,63 @@ backend/
 extension/
   manifest.json        # Chrome extension manifest
   content.js           # Content script for badge injection
+  popup.html           # Extension popup UI for filtering, sorting, export
+  popup.js             # Popup logic
 ```
 
-## Setup Instructions
+## Supported Sites
+- Google Scholar
+- Semantic Scholar
+- (Add more: PubMed, Web of Science, Scopus, etc. — see below)
 
-### 1. Download SJR Data
-- Go to https://www.scimagojr.com/journalrank.php
-- Click "Download data" and save as `journals.csv` in `backend/`
+## Adding Support for More Sites
+- To support more academic sites, update `content.js`:
+  - Add new selectors and extraction logic for each site (e.g., PubMed, Scopus).
+  - Use `window.location.hostname` to detect the site and apply the right logic.
+- Example:
+  ```js
+  function extractJournals() {
+    if (location.hostname.includes('scholar.google.com')) {
+      // ...Google Scholar logic...
+    } else if (location.hostname.includes('semanticscholar.org')) {
+      // ...Semantic Scholar logic...
+    } else if (location.hostname.includes('pubmed.ncbi.nlm.nih.gov')) {
+      // ...PubMed logic...
+    }
+    // Add more as needed
+  }
+  ```
 
-### 2. Backend Setup
-```bash
-cd backend
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-python quartile_api.py
-```
-- The API runs at http://127.0.0.1:5000
+## More Journal Metrics
+- The backend (`quartile_api.py`) now returns:
+  - Quartile (Q1–Q4)
+  - SJR score
+  - Impact Factor (if available)
+  - Open Access status (if available)
+  - Scimago Journal URL
+- You can add more metrics by updating the backend to parse additional columns from `journals.csv` and return them in the API response.
+- The extension displays these metrics in the badge tooltip.
 
-### 3. Load the Chrome Extension
-- Go to `chrome://extensions/`
-- Enable Developer mode
-- Click "Load unpacked" and select the `extension/` folder
+## Customization
+- **Badge Colors:**
+  - Edit `content.js` to change badge colors for each quartile.
+- **API Endpoint:**
+  - Make the API URL configurable via an options page or popup.
+- **Quartile Filter/Sort:**
+  - Use the popup to filter/sort results by quartile.
+- **Export:**
+  - Export Q1/Q2 results to CSV from the popup.
+- **Add More Features:**
+  - Add notifications, highlight open access, or integrate with reference managers.
 
-### 4. Test the Workflow
-- Open Google Scholar and search for articles
-- Quartile badges should appear next to journal names
-
-## Troubleshooting
-- **CORS errors:** Ensure Flask is running with CORS enabled
-- **No badges:** Check API is running and accessible
-- **Selector changes:** Update selectors in `content.js` if site layout changes
-
-## Improvements
-- MutationObserver for dynamic content
-- Caching with localStorage
-- Tooltip with match info
-- Easy to extend for more sites or features
+## How to Extend
+1. **To support a new site:**
+   - Add a new `else if` block in `extractJournals()` in `content.js` for the site's structure.
+2. **To add a new metric:**
+   - Update `quartile_api.py` to extract and return the metric from the CSV.
+   - Update badge tooltip logic in `content.js` to display it.
+3. **To customize UI:**
+   - Edit `popup.html` and `popup.js` for new controls or settings.
 
 ---
 

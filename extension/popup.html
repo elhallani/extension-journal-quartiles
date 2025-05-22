@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Journal Quartile Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-width: 270px;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f7fafd 60%, #e3f2fd 100%);
+      color: #222;
+    }
+    .container {
+      padding: 22px 18px 16px 18px;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+      background: #fff;
+      margin: 0;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+    .section strong {
+      font-size: 1.12em;
+      color: #1976d2;
+      display: block;
+      margin-bottom: 7px;
+      letter-spacing: 0.01em;
+    }
+    label {
+      margin-right: 14px;
+      font-size: 1em;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 5px;
+      transition: background 0.15s;
+    }
+    label:hover {
+      background: #e3f2fd;
+    }
+    input[type="radio"] {
+      accent-color: #1976d2;
+      margin-right: 4px;
+    }
+    button {
+      background: linear-gradient(90deg, #1976d2 60%, #00bcd4 100%);
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 8px 18px;
+      font-size: 1em;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 7px;
+      margin-bottom: 2px;
+      box-shadow: 0 1px 6px rgba(25, 118, 210, 0.10);
+      transition: background 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.01em;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #1565c0 60%, #0097a7 100%);
+      box-shadow: 0 2px 10px rgba(25, 118, 210, 0.13);
+    }
+    .footer {
+      font-size: 0.97em;
+      color: #888;
+      text-align: center;
+      margin-top: 14px;
+      margin-bottom: 2px;
+      letter-spacing: 0.01em;
+    }
+    .footer a {
+      color: #1976d2;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .footer a:hover {
+      color: #00bcd4;
+      text-decoration: underline;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #e3e8ee;
+      margin: 14px 0 12px 0;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .logo-icon {
+      font-size: 1.7em;
+      margin-right: 7px;
+      color: #1976d2;
+    }
+    .logo-text {
+      font-size: 1.18em;
+      font-weight: 600;
+      color: #1976d2;
+      letter-spacing: 0.02em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <span class="logo-icon">📊</span>
+      <span class="logo-text">Journal Quartile Assistant</span>
+    </div>
+    <div class="section">
+      <strong>Quartile Filter</strong>
+      <label><input type="radio" name="quartile-filter" value="all" checked> Show All</label>
+      <label><input type="radio" name="quartile-filter" value="q1"> Q1 Only</label>
+      <label><input type="radio" name="quartile-filter" value="q1q2"> Q1 & Q2</label>
+    </div>
+    <div class="section">
+      <button id="sort-btn">Sort by Quartile</button>
+    </div>
+    <div class="section">
+      <button id="export-btn">Export Q1/Q2 Results (CSV)</button>
+    </div>
+    <hr>
+    <div class="footer">
+      Created & developed by <a href="https://www.linkedin.com/in/anass-el-hallani-9a7a14250/" target="_blank">Anass el hallani</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
